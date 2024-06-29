@@ -11,7 +11,7 @@ https://github.com/tutsplus/vuejs-tutorial-beginner-to-front-end-developer/tree/
 
 ### Loops
 
-```
+```html
 <li v-for="link in links" class="nav-item">
     <a class="nav-link"  aria-current="page" :href="#">{{ links[0] }}</a>
 </li>
@@ -19,7 +19,7 @@ https://github.com/tutsplus/vuejs-tutorial-beginner-to-front-end-developer/tree/
 
 ### Binding Data
 
-```
+```html
 v-bind:href="{{ link.href }}"
 -- shorten
 :href="link.href"
@@ -29,7 +29,7 @@ v-bind:href="{{ link.href }}"
 
 ### Events
 
-```
+```html
 -- instead of onclick
 v-on:click="activePage = index"
 -- shorten
@@ -40,7 +40,7 @@ v-on:click="activePage = index"
 
 ### Binding Css Classes
 
-```
+```html
 -- assigning active class
 <a 
     class="nav-link" 
@@ -54,7 +54,7 @@ v-on:click="activePage = index"
 ```
 
 ### Computed Properties
-```
+```html
 -- define it in computed section
 computed: {
     navbarClasses() {
