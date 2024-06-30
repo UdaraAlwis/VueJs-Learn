@@ -73,6 +73,50 @@ computed: {
 />
 ```
 
+### Binding Css Classes II
+
+```html
+-- with ternary conditions and multiple css
+<nav 
+:class="[useDarkNavBar ? 'bg-dark' : 'bg-light', 'navbar', 'navbar-expand-lg']">
+```
+
+### Functions
+
+```
+methods: {
+    changeTheme() {
+        let theme = 'light';
+
+        if (this.theme == 'light') {
+            theme = 'dark';
+        }
+
+        this.theme = theme;
+    }
+}
+```
+
+### Components
+
+```
+-- Register the component
+app.component('page-viewer', {
+    props: ['pageTitle', 'pageContent'],
+    template: `
+        <div class="container">
+            <h1>{{ pageTitle }}</h1>
+            <p>{{ pageContent }}</p>
+        </div>
+        `
+});
+
+-- Consume the component   
+<page-viewer 
+    :page-title="pages[activePage].pageTitle" 
+    :page-content="pages[activePage].content">
+</page-viewer>
+```
 
 Vue JS Crash Course
 
