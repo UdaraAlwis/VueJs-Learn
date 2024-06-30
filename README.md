@@ -83,7 +83,7 @@ computed: {
 
 ### Functions
 
-```
+```html
 methods: {
     changeTheme() {
         let theme = 'light';
@@ -99,7 +99,7 @@ methods: {
 
 ### Components
 
-```
+```html
 -- Register the component
 app.component('page-viewer', {
     props: ['pageTitle', 'pageContent'],
