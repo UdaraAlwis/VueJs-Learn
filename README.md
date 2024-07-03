@@ -118,6 +118,20 @@ app.component('page-viewer', {
 </page-viewer>
 ```
 
+
+### Data flow  
+
+```html
+-- Execute function from Child level
+<a ...
+ @click.prevent="navLinkClick(index)"></a>
+
+-- Consume the event from Parent level 
+<navbar ...
+:nav-link-click="(index) => activePage = index">
+</navbar>
+```
+
 Vue JS Crash Course
 
 https://www.youtube.com/watch?v=qZXt1Aom3Cs
