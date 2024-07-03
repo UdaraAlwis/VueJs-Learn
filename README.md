@@ -132,6 +132,11 @@ app.component('page-viewer', {
 </navbar>
 ```
 
+### Vue CLI
+```
+vue create vue-start-spa
+```
+
 Vue JS Crash Course
 
 https://www.youtube.com/watch?v=qZXt1Aom3Cs
