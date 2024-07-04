@@ -134,8 +134,16 @@ app.component('page-viewer', {
 
 ### Vue CLI
 ```
+-- Create new project
 vue create vue-start-spa
+
+-- Install bootstrap
+npm install bootstrap --save
+
+-- Import in main.js
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
 ```
+
 
 Vue JS Crash Course
 

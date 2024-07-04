@@ -1,6 +1,18 @@
-import { createApp } from "vue";
+<template>
+    <navbar :pages="pages" :active-page="activePage" :nav-link-click="(index) => activePage = index">
+    </navbar>
 
-createApp({{
+    <page-viewer :page="pages[activePage]"></page-viewer>
+</template>
+
+<script>
+import PageViewer from './components/PageViewer.vue';
+import Navbar from './components/Navbar.vue';
+
+export default {
+    components: {
+        PageViewer, Navbar
+    },
     data() {
         return {
             activePage: 0,
@@ -22,5 +34,6 @@ createApp({{
                 }
             ]
         };
-    },
-}}).mount('#app');
+    }
+}
+</script>
