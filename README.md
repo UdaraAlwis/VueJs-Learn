@@ -144,6 +144,18 @@ npm install bootstrap --save
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 ```
 
+### Css scoped
+```html
+-- Scope css to the current component only
+<style scoped>
+.emphasize{
+    text-decoration: underline !important;
+}
+</style>
+...
+<h1 class="emphasize">{{ page.pageTitle }}</h1>
+```
+
 
 Vue JS Crash Course
 
