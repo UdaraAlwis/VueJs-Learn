@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref } from "vue";
+import { reactive, ref, computed } from "vue";
 /*
  This is an Icon that you can use to represent the stars if you like
  otherwise you could just use a simple ⭐️ emoji, or * character.
@@ -63,16 +63,24 @@ function validate() {
 
 function addMovie() {
   if (validate()) {
-    const movie = {
-      id: Number(Date.now()),
-      name: form.name,
-      description: form.description,
-      image: form.image,
-      genres: form.genres,
-      inTheaters: form.inTheaters,
-      rating: null,
-    };
-    movies.value.push(movie);
+    if (form.id) {
+      // update existing movie
+      var indexOfMovie = movies.value.findIndex((x) => x.id == form.id);
+      movies.value[indexOfMovie] = Object.assign({}, form);
+    } else {
+      // add new movie
+      const movie = {
+        id: Number(Date.now()),
+        name: form.name,
+        description: form.description,
+        image: form.image,
+        genres: form.genres,
+        inTheaters: form.inTheaters,
+        rating: null,
+      };
+      movies.value.push(movie);
+    }
+
     hideForm();
   }
 }
@@ -101,9 +109,38 @@ function hideForm() {
   cleanUpForm();
 }
 
-function showForm() {
+function showForm(movieToEdit) {
   showMovieForm.value = true;
+  if (movieToEdit) {
+    var movieCopy = Object.assign({}, movieToEdit);
+    form.id = movieCopy.id;
+    form.name = movieCopy.name;
+    form.description = movieCopy.description;
+    form.image = movieCopy.image;
+    form.genres = movieCopy.genres;
+    form.inTheaters = movieCopy.inTheaters;
+  }
 }
+
+function resetAllRatings() {
+  movies.value.forEach((movie) => {
+    movie.rating = 0;
+  });
+}
+
+var totalMoviesCountText = computed(() => {
+  return `Total Movies: ${movies.value.length}`;
+});
+
+var averageMovieRatingValueText = computed(() => {
+  var ratingsSum = 0;
+  movies.value.forEach((movie) => {
+    ratingsSum += movie.rating;
+  });
+
+  var ratingAverage = ratingsSum / movies.value.length;
+  return `Rating Average: ${ratingAverage.toFixed(2)}`;
+});
 </script>
 
 <template>
@@ -181,21 +218,36 @@ function showForm() {
               Cancel
             </button>
 
-            <button type="submit" class="button-primary">Create</button>
+            <button v-if="form.id" type="submit" class="button-primary">
+              Update
+            </button>
+            <button v-else type="submit" class="button-primary">Create</button>
           </div>
         </form>
       </div>
     </div>
     <div class="movie-actions-list-wrapper">
+      <div class="movie-actions-list-info">
+        <span>{{ totalMoviesCountText }}</span>
+        <span> - </span>
+        <span>{{ averageMovieRatingValueText }}</span>
+      </div>
       <div class="flex-spacer"></div>
       <div class="movie-actions-list-actions">
+        <button
+          class="movie-actions-list-action-button"
+          style="background: red; color: white"
+          @click="resetAllRatings()"
+        >
+          Remove Ratings
+        </button>
         <button
           class="movie-actions-list-action-button"
           :class="{
             'button-primary': !showMovieForm,
             'button-disabled': showMovieForm,
           }"
-          @click="showForm"
+          @click="showForm(null)"
           :disabled="showMovieForm"
         >
           Add Movie
@@ -263,6 +315,17 @@ function showForm() {
                 @click="updateRating(movieIndex, star)"
               >
                 <StarIcon class="movie-item-star-icon" />
+              </button>
+              <button
+                class="movie-actions-list-action-button"
+                :class="{
+                  'button-primary': !showMovieForm,
+                  'button-disabled': showMovieForm,
+                }"
+                @click="showForm(movie)"
+                :disabled="showMovieForm"
+              >
+                Edit
               </button>
             </div>
           </div>
