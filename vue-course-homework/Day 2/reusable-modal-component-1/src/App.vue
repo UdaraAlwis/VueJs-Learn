@@ -1,6 +1,7 @@
 <script setup>
 import MovieForm from "@/MovieForm.vue";
 import MovieItem from "@/MovieItem.vue";
+import AppModal from "@/AppModal.vue";
 import { items } from "./movies.json";
 import { computed, ref } from "vue";
 const movies = ref(items);
@@ -69,15 +70,18 @@ function removeRatings() {
 
 <template>
   <div class="app">
-    <div v-if="showMovieForm" class="modal-wrapper">
-      <div class="modal-wrapper-inner">
-        <MovieForm
-          @update:modelValue="saveMovie"
-          :modelValue="currentMovie"
-          @cancel="hideForm"
-        />
-      </div>
-    </div>
+    <AppModal
+      v-if="showMovieForm"
+      :title="currentMovie ? 'Edit Movie' : 'Add Movie'"
+      @close="hideForm()"
+    >
+      <MovieForm
+        v-if="showMovieForm"
+        @update:modelValue="saveMovie"
+        :modelValue="currentMovie"
+        @cancel="hideForm"
+      />
+    </AppModal>
     <div class="movie-actions-list-wrapper">
       <div class="movie-actions-list-info">
         <span>Total Movies: {{ totalMovies }}</span>
