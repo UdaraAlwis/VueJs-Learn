@@ -1,14 +1,13 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { computed } from "vue";
 import { StarIcon, TrashIcon, PencilIcon } from "@heroicons/vue/24/solid";
 
-defineProps(['movie']);
-defineEmits(['update-rating', 'edit', 'remove']);
+defineProps(["movie"]);
+defineEmits(["update-rating", "edit", "remove"]);
 
 var notRated = computed(() => {
   return movie.rating < 0;
 });
-
 </script>
 
 <template>
@@ -27,9 +26,7 @@ var notRated = computed(() => {
         >
           {{ movie.rating }}
         </span>
-        <span v-else class="movie-item-star-content-rating-not-rated">
-          -
-        </span>
+        <span v-else class="movie-item-star-content-rating-not-rated"> - </span>
       </div>
     </div>
     <img :src="movie.image" class="movie-item-image" alt="" />
@@ -59,9 +56,7 @@ var notRated = computed(() => {
           v-for="star in 5"
           :key="star"
           class="movie-item-star-icon-button"
-          :class="[
-            star <= movie.rating ? 'text-yellow-500' : 'text-gray-500',
-          ]"
+          :class="[star <= movie.rating ? 'text-yellow-500' : 'text-gray-500']"
           :disabled="star === movie.rating"
           v-on:click="$emit('update-rating', movie.id, star)"
         >
