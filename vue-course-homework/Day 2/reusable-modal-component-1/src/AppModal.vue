@@ -7,7 +7,7 @@ import { XMarkIcon } from "@heroicons/vue/20/solid";
   <!--  Start your component template here -->
   <div class="modal-body">
     <div class="modal-header">
-      <h3>{{ title }}</h3>
+      <slot name="header"></slot>
       <button @click="closeModal">
         <XMarkIcon />
       </button>
