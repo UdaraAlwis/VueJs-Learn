@@ -1,15 +1,16 @@
 <script setup>
 import CountdownHeader from "@/components/CountdownHeader.vue";
 import CountdownSegment from "@/components/CountdownSegment.vue";
-import { onMounted, ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 
 const daysUntil = ref(0);
 const hoursUntil = ref(0);
 const minutesUntil = ref(0);
 const secondsUntil = ref(0);
 
+let interval;
 onMounted(() => {
-  setInterval(() => {
+  interval = setInterval(() => {
     const timeNow = new Date();
 
     const endOfYear = new Date(timeNow.getFullYear(), 11, 31, 23, 59, 59, 999);
@@ -24,6 +25,10 @@ onMounted(() => {
     );
     secondsUntil.value = Math.floor((timeDiff % (1000 * 60)) / 1000);
   }, 1000);
+});
+
+onUnmounted(() => {
+  clearInterval(interval);
 });
 </script>
 <template>
