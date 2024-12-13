@@ -1,16 +1,52 @@
 <script setup>
 import CountdownHeader from "@/components/CountdownHeader.vue";
 import CountdownSegment from "@/components/CountdownSegment.vue";
+import { onMounted, ref } from "vue";
+
+const daysUntil = ref(0);
+const hoursUntil = ref(0);
+const minutesUntil = ref(0);
+const secondsUntil = ref(0);
+
+onMounted(() => {
+  setInterval(() => {
+    const timeNow = new Date();
+
+    const endOfYear = new Date(timeNow.getFullYear(), 11, 31, 23, 59, 59, 999);
+    const timeDiff = endOfYear - timeNow;
+
+    daysUntil.value = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    hoursUntil.value = Math.floor(
+      (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+    );
+    minutesUntil.value = Math.floor(
+      (timeDiff % (1000 * 60 * 60)) / (1000 * 60),
+    );
+    secondsUntil.value = Math.floor((timeDiff % (1000 * 60)) / 1000);
+  }, 1000);
+});
 </script>
 <template>
   <div class="app-wrapper">
     <div class="countdown-box">
       <CountdownHeader />
       <main class="flex justify-center">
-        <CountdownSegment data-test="days" label="days" number="0" />
-        <CountdownSegment data-test="hours" label="hours" number="0" />
-        <CountdownSegment data-test="minutes" label="minutes" number="0" />
-        <CountdownSegment data-test="seconds" label="seconds" number="0" />
+        <CountdownSegment data-test="days" label="days" :number="daysUntil" />
+        <CountdownSegment
+          data-test="hours"
+          label="hours"
+          :number="hoursUntil"
+        />
+        <CountdownSegment
+          data-test="minutes"
+          label="minutes"
+          :number="minutesUntil"
+        />
+        <CountdownSegment
+          data-test="seconds"
+          label="seconds"
+          :number="secondsUntil"
+        />
       </main>
     </div>
   </div>
