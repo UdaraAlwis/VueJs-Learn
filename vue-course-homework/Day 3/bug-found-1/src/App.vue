@@ -38,7 +38,7 @@ function updateMovie(data) {
       data.rating = m.rating;
       return data;
     }
-    return data;
+    return m;
   });
   hideForm();
 }
@@ -121,7 +121,7 @@ function removeRatings() {
         :movie="movie"
         @edit="editMovie"
         @remove="removeMovie"
-        v-bind:update:rating="updateRating"
+        @update:rating="updateRating"
       />
     </div>
   </div>
