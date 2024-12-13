@@ -1,9 +1,14 @@
 <script setup>
-import { reactive } from "vue";
+import { reactive, useTemplateRef, onMounted } from "vue";
 
 const emit = defineEmits(["update:modelValue", "cancel"]);
 const props = defineProps({
   modelValue: { type: Object, default: null },
+});
+const nameFieldRef = useTemplateRef("nameFieldRef");
+
+onMounted(() => {
+  nameFieldRef.value.focus();
 });
 
 const genres = reactive([
@@ -101,6 +106,7 @@ function clearErrors() {
     <div class="movie-form-input-wrapper">
       <label for="name">Name</label>
       <input
+        ref="nameFieldRef"
         type="text"
         name="name"
         v-model="form.name"
