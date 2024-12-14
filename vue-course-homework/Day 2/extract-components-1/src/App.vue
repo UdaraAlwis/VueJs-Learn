@@ -9,7 +9,7 @@ import MovieItem from "./MovieItem.vue";
 const movies = ref(items);
 
 function updateRating(movieId, rating) {
-  var indexOfMovie = movies.value.findIndex(m => m.id == movieId);
+  var indexOfMovie = movies.value.findIndex((m) => m.id == movieId);
   movies.value[indexOfMovie].rating = rating;
 }
 function removeMovie(movieId) {
@@ -17,7 +17,7 @@ function removeMovie(movieId) {
   movies.value = movies.value.filter((movie, index) => index !== indexOfMovie);
 }
 function editMovie(movieId) {
-  var indexOfMovie = movies.value.findIndex(m => m.id == movieId);
+  var indexOfMovie = movies.value.findIndex((m) => m.id == movieId);
   const movie = movies.value[indexOfMovie];
 
   form.id = movie.id;
@@ -291,10 +291,12 @@ function removeRatings() {
         v-for="(movie, movieIndex) in movies"
         :key="`${movie.id}-${movieIndex}`"
       >
-        <MovieItem :movie="movie" 
-        @update-rating="(movieId, star) => updateRating(movieId, star)" 
-        @edit="(movieId) => editMovie(movieId)" 
-        @remove="(movieId) => removeMovie(movieId)" ></MovieItem>
+        <MovieItem
+          :movie="movie"
+          @update-rating="(movieId, star) => updateRating(movieId, star)"
+          @edit="(movieId) => editMovie(movieId)"
+          @remove="(movieId) => removeMovie(movieId)"
+        ></MovieItem>
       </div>
     </div>
   </div>
