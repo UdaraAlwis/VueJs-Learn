@@ -3,52 +3,51 @@ import { StarIcon as StarIconOutline } from "@heroicons/vue/24/outline";
 import { StarIcon as StarIconSolid } from "@heroicons/vue/24/solid";
 import { onMounted, onBeforeUnmount, useTemplateRef } from "vue";
 
-defineProps({
+const props = defineProps({
   modelValue: {
     type: Number,
+    required: true
   },
   count: {
     type: Number,
   }
 });
 
-const ratingDiv = useTemplateRef('ratingDiv');
-
-defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue']);
 
 onMounted(() => {
-  window.addEventListener("keypress", handleKeyPress);
+  console.log('modelValue.value', props.modelValue);
+  window.addEventListener("keydown", handleKeyPress);
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener("keypress", handleKeyPress);
+  window.removeEventListener("keydown", handleKeyPress);
 });
 
 function handleKeyPress (event) {
-  console.log(event);
   // "ArrowRight", "ArrowLeft", "ArrowUp", or "ArrowDown"
   if (event.key === "ArrowRight") {
-    if(modalValue.value > count.value){
-      modalValue.value = modalValue.value + 1;
+    if(props.modelValue < props.count){
+      emit('update:modelValue', props.modelValue + 1);
     }
   } else if(event.key === "ArrowLeft"){
-    if(modelValue.value > 0){
-      modelValue.value = modelValue.value - 1;
+    if(props.modelValue > 0){
+      emit('update:modelValue', props.modelValue - 1);
     }
   } else if(event.key === "ArrowUp"){
-    if(count.value > modelValue.value){
-      modelValue.value = modelValue.value + 1;
+    if(props.count > props.modelValue.value){
+      emit('update:modelValue', props.modelValue + 1);
     }    
   } else if(event.key === "ArrowDown"){
-    if(modelValue.value > 0){
-      modelValue.value = modelValue.value - 1;
+    if(props.modelValue > 0){
+      emit('update:modelValue', props.modelValue - 1);
     }
   }
 }
 
 </script>
 <template>
-  <div autofocus tabindex="0" data-test="rating-wrapper" ref="ratingDiv">
+  <div autofocus tabindex="0" data-test="rating-wrapper">
     <button v-for="starIndex in count" :key="starIndex" tabindex="-1" data-test="rating-button"
       v-on:click="$emit('update:modelValue', starIndex)">
       <StarIconSolid v-if="starIndex <= modelValue" data-test="solid-star" class="solid-star" />

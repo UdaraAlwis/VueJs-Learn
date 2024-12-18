@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import RatingInput from "./components/RatingInput.vue";
 
-const rating = ref();
+const rating = ref(0);
 
 function updateRating(newRating) {
   rating.value = newRating;
@@ -11,6 +11,6 @@ function updateRating(newRating) {
 
 <template>
   <h1>Rating Input Feature Challenge</h1>
-  <RatingInput :modelValue="rating" @update:modelValue="(newRating) => updateRating(newRating)" :count="10" />
+  <RatingInput v-bind:modelValue="rating" @update:modelValue="(newRating) => updateRating(newRating)" :count="10" />
   <p>You Selected Rating: {{ rating || "NA" }}</p>
 </template>
