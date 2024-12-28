@@ -9,9 +9,9 @@ const props = defineProps({
     required: true,
   },
 });
-const user = ref(props.user);
+const user = ref({ ...unref(props.user) });
 const update = () => {
-  emit("update", { ...unref(user) });
+  emit("update", { ...unref(user.value) });
 };
 </script>
 
@@ -28,55 +28,30 @@ const update = () => {
           <div class="sm:col-span-3">
             <label for="first-name" class="label">First name</label>
             <div class="mt-2">
-              <input
-                v-model="user.firstName"
-                type="text"
-                name="first-name"
-                id="first-name"
-                autocomplete="given-name"
-                class="input"
-              />
+              <input v-model="user.firstName" type="text" name="first-name" id="first-name" autocomplete="given-name"
+                class="input" />
             </div>
           </div>
 
           <div class="sm:col-span-3">
             <label for="last-name" class="label">Last name</label>
             <div class="mt-2">
-              <input
-                v-model="user.lastName"
-                type="text"
-                name="last-name"
-                id="last-name"
-                autocomplete="family-name"
-                class="input"
-              />
+              <input v-model="user.lastName" type="text" name="last-name" id="last-name" autocomplete="family-name"
+                class="input" />
             </div>
           </div>
 
           <div class="sm:col-span-4">
             <label for="email" class="label">Email address</label>
             <div class="mt-2">
-              <input
-                v-model="user.email"
-                id="email"
-                name="email"
-                type="email"
-                autocomplete="email"
-                class="input"
-              />
+              <input v-model="user.email" id="email" name="email" type="email" autocomplete="email" class="input" />
             </div>
           </div>
 
           <div class="col-span-full">
             <label for="about" class="label">About</label>
             <div class="mt-2">
-              <textarea
-                v-model="user.about"
-                id="about"
-                name="about"
-                rows="3"
-                class="input"
-              />
+              <textarea v-model="user.about" id="about" name="about" rows="3" class="input" />
             </div>
             <p class="hint">Write a few sentences about yourself.</p>
           </div>
