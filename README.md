@@ -156,6 +156,41 @@ import '../node_modules/bootstrap/dist/css/bootstrap.css';
 <h1 class="emphasize">{{ page.pageTitle }}</h1>
 ```
 
+### Show or Render upon condition
+```html
+-- will be rendered if true
+    <page-viewer 
+        v-if="pages.length > 0"
+        :page="pages[activePage]"></page-viewer>
+  
+-- will be rendered regardless but shown if true
+    <page-viewer 
+        v-show="pages.length > 0"
+        :page="pages[activePage]"></page-viewer>
+```
+
+## Define descriptor for a prop
+```js
+--  with default fallback value
+<script>
+export default {
+    props: {
+        page : {
+            type: Object,
+            default(rawProps) {
+                return {
+                    pageTitle: '',
+                    content: ''
+                }
+            }
+        }
+    }
+    ...
+}
+```
+
+
+
 
 Vue JS Crash Course
 
